@@ -26,7 +26,6 @@ You can change the environment variables in your `zshrc`.
 ### Set the directory location to save files
 
 You can specify the takenote's root directory by `$TAKENOTE_ROOTDIR`.
-This environment variable needs to be exported every time you log in zsh, so put the next line to `~/.zshrc`
 
 ```
 TAKENOTE_ROOTDIR="$HOME/Workspace/blog"
