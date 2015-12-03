@@ -157,10 +157,11 @@ takenote() {
 }
 
 _takenote() {
+  local pattern='s/\('"${TAKENOTE_FILENAME_PRE}"'[0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}'"${TAKENOTE_FILENAME_POST}"'.'"${TAKENOTE_FILENAME_EXTENSION}"'\)/\1/p'
   typeset -A opt_args
   _arguments -S \
     "(-l -r -h)-d[Set the root directory to create day-directory.]:direcotry:_path_files -/" \
-    "(-l -r -h)-o[Set the text file's name.]:files:( `takenote -l` )" \
+    "(-l -r -h)-o[Set the text file's name.]:files:( `takenote -l | sed -n $pattern` )" \
     "(-l -r -h)-g[Open with alternative program (default: '$EDITOR').]:editor:(vim leafpad nano gedit)" \
     "(-d -o -g -r -h)-l[Show the files in the today's directory.]: :" \
     "(-d -o -g -l -h)-r[Open the today's dir, or it doesn't exist, to the ROOT dir.]: :" \
