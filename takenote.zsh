@@ -42,6 +42,8 @@ takenote() {
     if [ ! -e "$1" ]; then
       echo "takenote: Directory '$1' doesn't exist."
       return 1
+    else
+      :
     fi
   }
 
@@ -54,6 +56,8 @@ takenote() {
       else
         return 1
       fi
+    else
+      :
     fi
   }
 
@@ -63,6 +67,8 @@ takenote() {
     if check_dir "$dir"; then
       list=$(ls "$dir")
       echo "$list"
+    else
+      :
     fi
   }
 
@@ -87,6 +93,8 @@ takenote() {
         i=1
       fi
       filename="$(printf ${TAKENOTE_FILENAME_PRE}%0${TAKENOTE_FILENAME_NUMORDER}d.${TAKENOTE_FILENAME_EXTENSION} "$i")"
+    else
+      :
     fi
 
     # show prompt "make dir ?"
@@ -111,6 +119,8 @@ takenote() {
       # change directory
       local cwd="`pwd`"
       cd "$dir"
+    else
+      :
     fi
 
     if [ -n "${editor}" ]; then
@@ -124,6 +134,8 @@ takenote() {
     if ${TAKENOTE_AUTOCD}; then
       # back to recent working directory
       cd "$cwd"
+    else
+      :
     fi
   }
 
