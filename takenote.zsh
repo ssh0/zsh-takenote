@@ -93,7 +93,7 @@ takenote() {
     if check_dir "${dir}"; then
       takenote_edit
     else
-      echo "confirm?takenote: Make the directory '$dir' ? [Y/n]"
+      echo "takenote: Make the directory '$dir' ? [Y/n]"
       read -rq "confirm?>>> "
       if [ "$confirm" != "n" ]; then
         echo "\ntakenote: mkdir -p ${dir}"
