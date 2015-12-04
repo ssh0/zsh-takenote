@@ -113,9 +113,9 @@ takenote() {
       cd "$dir"
     fi
 
-    if [[ ! "${editor}" = "" ]]; then
+    if [ -n "${editor}" ]; then
       $editor "$dir/$filename"
-    elif [[ ! "${TAKENOTE_EDITORCMD}" = "" ]]; then
+    elif [ -n "${TAKENOTE_EDITORCMD}" ]; then
       ${TAKENOTE_EDITORCMD} "$dir/$filename"
     else
       nano "$dir/$filename"
