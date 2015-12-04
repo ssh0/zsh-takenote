@@ -1,5 +1,5 @@
 # vim: ft=zsh
-# takenote - provide easy way ot take note in the today's direcotry.
+# takenote - provide easy way to take note in the today's direcotry.
 
 # Version:    v1.0
 # Repository: https://github.com/ssh0/zsh-takenote
