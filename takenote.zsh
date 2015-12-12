@@ -136,9 +136,10 @@ takenote() {
             if takenote_init; then
               # only show existing file in the directory
               if check_dir "$dir"; then
-                local list=$(ls "$dir")
+                list=$(ls "$dir")
                 echo "$list"
               fi
+              unset list
               cleanup_namespace; return 0
             else
               cleanup_namespace; return 1
