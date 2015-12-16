@@ -24,7 +24,7 @@ takenote() {
   local dir filename editor
   local filercmd=${TAKENOTE_FILERCMD}
   local rootdir=${TAKENOTE_ROOTDIR}
-  local pattern='s/'"${TAKENOTE_FILENAME_PRE}"'\([0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}\)'"${TAKENOTE_FILENAME_POST}"'.'"${TAKENOTE_FILENAME_EXTENSION}"'/\1/p'
+  local pattern='s/'"${TAKENOTE_FILENAME_PRE}"'\([0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}\)'"${TAKENOTE_FILENAME_POST}"'\.'"${TAKENOTE_FILENAME_EXTENSION}"'/\1/p'
 
   show_usage() {
     echo ""
@@ -174,7 +174,7 @@ takenote() {
 }
 
 _takenote() {
-  local pattern='s/\('"${TAKENOTE_FILENAME_PRE}"'[0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}'"${TAKENOTE_FILENAME_POST}"'.'"${TAKENOTE_FILENAME_EXTENSION}"'\)/\1/p'
+  local pattern='s/\('"${TAKENOTE_FILENAME_PRE}"'[0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}'"${TAKENOTE_FILENAME_POST}"'\.'"${TAKENOTE_FILENAME_EXTENSION}"'\)/\1/p'
   typeset -A opt_args
   _arguments -S \
     "(-l -r -h)-d[Set the root directory to create day-directory.]:direcotry:_path_files -/" \
