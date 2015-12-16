@@ -24,18 +24,36 @@ takenote() {
   local dir filename editor
   local filercmd=${TAKENOTE_FILERCMD}
   local rootdir=${TAKENOTE_ROOTDIR}
-  local pattern='s/'"${TAKENOTE_FILENAME_PRE}"'\([0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}\)'"${TAKENOTE_FILENAME_POST}"'\.'"${TAKENOTE_FILENAME_EXTENSION}"'/\1/p'
+  local pattern='s/'"${TAKENOTE_FILENAME_PRE}"'\([0-9]\{'
+  pattern="${pattern}${TAKENOTE_FILENAME_NUMORDER}"'\}\)'
+  pattern="${pattern}${TAKENOTE_FILENAME_POST}"
+  pattern="${pattern}"'\.'"${TAKENOTE_FILENAME_EXTENSION}"'/\1/p'
+  daydir="$(date +"${TAKENOTE_DAYDIR_FORMAT}")"
 
   show_usage() {
-    echo ""
-    echo "Usage: takenote [-d directory] [-o filename] [-g cmd] [-l] [-r] [-h]"
-    echo ""
-    echo "  -d dir     : Set the directory to save files (default: '${TAKENOTE_ROOTDIR}/$(date +"${TAKENOTE_DAYDIR_FORMAT}")')"
-    echo "  -o filename: Set the file's name"
-    echo "  -g editor  : Open with an altenative program (default: '${TAKENOTE_EDITORCMD}')"
-    echo "  -l         : List the files in today's directory"
-    echo "  -r         : Open the today's dir or the ROOT dir with file manager (default: '${TAKENOTE_FILERCMD}')"
-    echo "  -h         : Show this message"
+    cat <<EOF
+
+Usage: takenote [-d directory] [-o filename] [-g cmd] [-l] [-r] [-h]
+
+  -d dir
+      Set the directory to save files
+      (default: '${TAKENOTE_ROOTDIR}/${daydir}')
+
+  -o filename
+      Set the file's name
+
+  -g editor
+      Open with an altenative program
+      (default: '${TAKENOTE_EDITORCMD}')
+
+  -l  List the files in today's directory
+
+  -r  Open the today's dir or the ROOT dir with file manager
+      (default: '${TAKENOTE_FILERCMD}')
+
+  -h  Show this message
+
+EOF
   }
 
   check_dir() {
@@ -67,11 +85,13 @@ takenote() {
     # set the filename
     if [[ "${filename}" = "" ]]; then
       if [ -e "$dir" ]; then
-        local i=$(( $(ls "$dir" | sed -n $pattern | tail -n 1) + 1 ))
+        i=$(( $(command -p ls "$dir" | sed -n $pattern | tail -n 1) + 1 ))
       else
         local i=1
       fi
-      filename="$(printf ${TAKENOTE_FILENAME_PRE}%0${TAKENOTE_FILENAME_NUMORDER}d.${TAKENOTE_FILENAME_EXTENSION} "$i")"
+      filename="${TAKENOTE_FILENAME_PRE}"
+      filename="${filename}$(printf %0${TAKENOTE_FILENAME_NUMORDER}d "$i")"
+      filename="${TAKENOTE_FILENAME_POST}.${TAKENOTE_FILENAME_EXTENSION}"
     else
       :
     fi
