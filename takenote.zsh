@@ -81,7 +81,7 @@ EOF
   }
 
   takenote_main() {
-    takenote_init || (cleanup_namespace; return 1)
+    takenote_init || return 1
     # set the filename
     if [[ "${filename}" = "" ]]; then
       if [ -e "$dir" ]; then
@@ -91,7 +91,8 @@ EOF
       fi
       filename="${TAKENOTE_FILENAME_PRE}"
       filename="${filename}$(printf %0${TAKENOTE_FILENAME_NUMORDER}d "$i")"
-      filename="${TAKENOTE_FILENAME_POST}.${TAKENOTE_FILENAME_EXTENSION}"
+      filename="${filename}${TAKENOTE_FILENAME_POST}"
+      filename="${filename}.${TAKENOTE_FILENAME_EXTENSION}"
     else
       :
     fi
@@ -143,6 +144,8 @@ EOF
     unset -f $0
   }
 
+  trap cleanup_namespace EXIT
+
   while getopts d:o:g:lrh OPT
   do
     case $OPT in
@@ -160,9 +163,9 @@ EOF
                 echo "$list"
               fi
               unset list
-              cleanup_namespace; return 0
+              return 0
             else
-              cleanup_namespace; return 1
+              return 1
             fi
             ;;
       "r" ) # takenote_openfiler
@@ -174,22 +177,22 @@ EOF
                 echo "Open root directory '$rootdir' ..."
                 "$filercmd" "$rootdir"
               fi
-              cleanup_namespace; return 0
+              return 0
             else
-              cleanup_namespace; return 1
+              return 1
             fi
             ;;
       "h" ) show_usage
-            cleanup_namespace; return 0
+            return 0
             ;;
         * ) show_usage
-            cleanup_namespace; return 1
+            return 1
             ;;
     esac
   done
 
   takenote_main
-  cleanup_namespace; return 0
+  return 0
 
 }
 
