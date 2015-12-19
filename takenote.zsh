@@ -117,7 +117,7 @@ EOF
     if ${TAKENOTE_AUTOCD}; then
       # change directory
       local cwd="`pwd`"
-      cd "$dir"
+      builtin cd "$dir"
     else
       :
     fi
@@ -132,7 +132,7 @@ EOF
 
     if ${TAKENOTE_AUTOCD}; then
       # back to recent working directory
-      cd "$cwd"
+      builtin cd "$cwd"
     else
       :
     fi
