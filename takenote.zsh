@@ -118,7 +118,7 @@ EOF
     if ${TAKENOTE_AUTOCD}; then
       # change directory
       local cwd="`pwd`"
-      cd "$dir"
+      builtin cd "$dir"
     else
       :
     fi
@@ -133,7 +133,7 @@ EOF
 
     if ${TAKENOTE_AUTOCD}; then
       # back to recent working directory
-      cd "$cwd"
+      builtin cd "$cwd"
     else
       :
     fi
@@ -197,7 +197,9 @@ EOF
 }
 
 _takenote() {
-  local pattern='s/\('"${TAKENOTE_FILENAME_PRE}"'[0-9]\{'"${TAKENOTE_FILENAME_NUMORDER}"'\}'"${TAKENOTE_FILENAME_POST}"'\.'"${TAKENOTE_FILENAME_EXTENSION}"'\)/\1/p'
+  local pattern='s/\('"${TAKENOTE_FILENAME_PRE}"'[0-9]\{'
+  pattern="${pattern}${TAKENOTE_FILENAME_NUMORDER}"'\}'"${TAKENOTE_FILENAME_POST}"
+  pattern="${pattern}"'\.'"${TAKENOTE_FILENAME_EXTENSION}"'\)/\1/p'
   typeset -A opt_args
   _arguments -S \
     "(-l -r -h)-d[Set the root directory to create day-directory.]:direcotry:_path_files -/" \
