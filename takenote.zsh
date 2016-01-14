@@ -91,7 +91,8 @@ EOF
       fi
       filename="${TAKENOTE_FILENAME_PRE}"
       filename="${filename}$(printf %0${TAKENOTE_FILENAME_NUMORDER}d "$i")"
-      filename="${filename}${TAKENOTE_FILENAME_POST}.${TAKENOTE_FILENAME_EXTENSION}"
+      filename="${filename}${TAKENOTE_FILENAME_POST}"
+      filename="${filename}.${TAKENOTE_FILENAME_EXTENSION}"
     else
       :
     fi
